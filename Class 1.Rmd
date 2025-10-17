@@ -1,0 +1,120 @@
+---
+title: "Class 1"
+author: "Christian"
+date: "2025-10-16"
+output: html_document
+---
+
+## R for data science class 1
+ Dr. Pacifique
+ 2025-09-14
+ Important definitions in data science
+ Statistics
+ Modelling
+ Computation
+ Calculus
+## Today’s class,we will study
+ Installation of R
+ Installation of R studio
+ Calculator in r
+ Data importation in R
+ Data description using numerical measures and graphs.
+## Data structure (Vectors, Factors, Lists, Data frame, matrix and arrays)
+## Vector: The foundational R data structure
+## Numeric
+
+```{r}
+x <- c(0.5, 0.6)
+ age<-c(20,35,32,29)
+ summary(age)
+```
+```{r}
+ age<-c(35,24,18,24)
+ mean(age)
+```
+### Logical
+```{r}
+x <- c(TRUE, FALSE)
+ x <- c(T, F)
+```
+
+### Character
+
+```{r}
+x<-c("a","b","c")
+ class<-c("M","F","F","M")
+```
+
+### Integer
+```{r}
+x<-9:29
+```
+
+### Complex
+```{r}
+ x<-c(1+0i,2+4i)
+```
+
+### Matrixandoperationwithinmatrices
+```{r}
+x<-matrix(1:6,nrow=2,ncol=3)
+ x
+```
+```{r}
+(y<-matrix(1:6,nrow=3,ncol=2))
+```
+```{r}
+ x%*%y
+```
+### List
+
+```{r}
+x<-list(1,"a",TRUE,1+4i)
+ x
+```
+
+### Factor
+
+```{r}
+ x<-factor(c("yes","yes","no","yes","no"))
+```
+
+### CreateavectorwithNAsinit
+```{r}
+x<-c(1,2,NA,10,3)
+```
+
+ReturnalogicalvectorindicatingwhichelementsareNA
+
+```{r}
+ is.na(x)
+```
+
+```{r}
+ bad<-is.na(x)
+ print(bad)
+```
+
+```{r}
+x[!bad]
+```
+
+WhatiftherearemultipleRobjectsandyouwanttotakethesubsetwithnomissing
+ valuesinanyofthoseobjects?
+ 
+```{r}
+ x<-c(1,2,NA,4,NA,5)
+ y<-c("a","b",NA,"d",NA,"f")
+ good<-complete.cases(x,y)
+ good
+```
+ 
+###  Coercion
+ Ifcharacterispresent,inavector,Rconverteverythinginthevectortocharacter
+ strings.
+ Ifavectoronlycontainslogicalandnumbers,Rwillconvertthelogicaltonumbers,
+ Everytruebecomesa1,andeveryFALSEbecomes0
+```{r}
+sum(c(TRUE,TRUE,FALSE,FALSE,FALSE))
+```
+
