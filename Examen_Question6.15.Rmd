@@ -1,0 +1,80 @@
+```{r}
+#6.15 Obtain the stratified importance sampling estimate in Example 6.14
+# and compare it with the result of Example 6.11.
+```
+1.Crude Monte Carlo (Example 6.11)
+
+```{r}
+set.seed(1)
+
+n <- 100000
+x <- rnorm(n)
+I_MC <- mean(x^2 * (x >= 1))
+
+I_MC
+
+```
+2.Importance Sampling (Example 6.14)
+
+```{r}
+set.seed(1)
+
+n <- 100000
+u <- runif(n)
+x <- qnorm(u * (1 - pnorm(1)) + pnorm(1))
+I_IS <- (1 - pnorm(1)) * mean(x^2)
+
+I_IS
+
+```
+3.Stratified Importance Sampling (Example 6.15)
+
+```{r}
+# Divide samples equally among 3 strata.
+
+set.seed(1)
+n <- 100000
+n1 <- n2 <- n3 <- n/3
+
+# step 1: Compute stratum probabilities.
+
+p1 <- pnorm(2) - pnorm(1)
+p2 <- pnorm(3) - pnorm(2)
+p3 <- 1 - pnorm(3)
+
+# Step 2: Function to sample truncated normal
+
+rtrunc <- function(n, a, b) {
+  u <- runif(n)
+  qnorm(u * (pnorm(b) - pnorm(a)) + pnorm(a))
+}
+# Step 3: Sample each stratum
+
+# Forces samples to come from each part of the tail.
+
+x1 <- rtrunc(n1, 1, 2)
+x2 <- rtrunc(n2, 2, 3)
+x3 <- rtrunc(n3, 3, Inf)
+# Step 4: Combine estimates
+
+I_SIS <- p1 * mean(x1^2) +
+         p2 * mean(x2^2) +
+         p3 * mean(x3^2)
+
+I_SIS
+
+
+
+
+
+
+
+```
+In conclusion:
+
+1.The crude Monte Carlo estimator has high variance because most normal samples fall below 1 and contribute zero.
+2.Importance sampling improves efficiency by sampling from a truncated normal distribution on 
+[1,∞).
+3.Stratified importance sampling further reduces variance by dividing the tail region into strata and sampling each separately, ensuring better coverage of the integration domain.
+
+
